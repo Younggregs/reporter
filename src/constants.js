@@ -7,7 +7,7 @@ export const URL = process.env.API_URL;
  */
 
 const API_ROOT_URL =
-	'http://localhost:8000/api';
+	'https://engine.myonepage.com/pi';
 const AUTH_URL = `${API_ROOT_URL}/auth/`;
 const LOGIN_URL = `${API_ROOT_URL}/login/`;
 const SUPER_USER_URL = `${API_ROOT_URL}/superuser/`
