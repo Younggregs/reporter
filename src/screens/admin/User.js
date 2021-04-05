@@ -157,10 +157,11 @@ export default function User(props) {
 
             <Grid className={classes.formField}>  
                 <TextField 
-                id="name" 
-                label="Full Name" 
-                onChange={onNameChanged}
-                required fullWidth/>
+                  autoFocus 
+                  id="name" 
+                  label="Full Name" 
+                  onChange={onNameChanged}
+                  required fullWidth/>
             </Grid>
 
             <Grid className={classes.formField}>  

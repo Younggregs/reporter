@@ -164,10 +164,11 @@ export default function ManageLocation(props) {
 
             <Grid className={classes.formField}>  
                 <TextField 
-                id="location" 
-                label="Report Location" 
-                onChange={onNameChanged}
-                required fullWidth/>
+                  autoFocus 
+                  id="location" 
+                  label="Report Location" 
+                  onChange={onNameChanged}
+                  required fullWidth/>
             </Grid>
 
             <p style={{color: '#ff0000'}}>{error}</p>

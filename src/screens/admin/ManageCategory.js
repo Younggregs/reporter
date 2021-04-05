@@ -164,10 +164,11 @@ export default function ManageCategory(props) {
 
             <Grid className={classes.formField}>  
                 <TextField 
-                id="category" 
-                label="Incident Category" 
-                onChange={onNameChanged}
-                required fullWidth/>
+                  autoFocus 
+                  id="category" 
+                  label="Incident Category" 
+                  onChange={onNameChanged}
+                  required fullWidth/>
             </Grid>
 
             <p style={{color: '#ff0000'}}>{error}</p>

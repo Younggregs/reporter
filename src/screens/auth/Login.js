@@ -59,7 +59,7 @@ export default function Login() {
                 <p>Proceed with login</p>
                 <form onSubmit={handleSubmit}>
                     <div className="position-relative">
-                        <span>Emal</span>
+                        <span>Email</span>
                         <input 
                             autoFocus 
                             type="text" 

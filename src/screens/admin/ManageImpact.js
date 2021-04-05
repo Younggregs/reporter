@@ -164,10 +164,11 @@ export default function ManageImpact(props) {
 
             <Grid className={classes.formField}>  
                 <TextField 
-                id="Impact" 
-                label="Impact" 
-                onChange={onNameChanged}
-                required fullWidth/>
+                  autoFocus 
+                  id="Impact" 
+                  label="Impact" 
+                  onChange={onNameChanged}
+                  required fullWidth/>
             </Grid>
 
             <p style={{color: '#ff0000'}}>{error}</p>
