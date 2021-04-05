@@ -479,6 +479,7 @@ nav .link-inner .inner-header ul .col-md-3 {
   padding: 15px;
   left: -13rem;
   min-width: 300px;
+  z-index: 1000;
   width: 100%;
   top: 3rem;
   border-radius: 10px;
