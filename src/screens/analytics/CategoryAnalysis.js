@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button1 from '../../components/Button'
-import GenericPieChart from '../../components/GenericPieChart'
+import CategoryChart from '../../components/CategoryChart'
 import Button from '@material-ui/core/Button'
 import DashboardNavbar from '../../partials/DashboardNavbar'
 import Dialog from '@material-ui/core/Dialog'
@@ -172,7 +172,7 @@ export default function ImpactAnalysis(props) {
   const canSave = [startDate, endDate].every(Boolean)
 
   return (
-    <div>
+    <div className={classes.root}>
         
         <DashboardNavbar title={`Incident Category Analysis`}/> 
 
@@ -278,9 +278,12 @@ export default function ImpactAnalysis(props) {
 
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid className="col-md-6">
-            <GenericPieChart data={list} />
+            <CategoryChart data={list} />
           </Grid>
         </Grid>
+
+        <br />
+        <div style={{paddingBottom: 50}} />
         
     </div>
   );

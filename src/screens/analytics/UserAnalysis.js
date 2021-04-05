@@ -171,7 +171,7 @@ export default function UserAnalysis(props) {
   const canSave = [startDate, endDate].every(Boolean)
 
   return (
-    <div>
+    <div className={classes.root}>
         
         <DashboardNavbar title={`User Analysis`}/> 
 
@@ -269,7 +269,7 @@ export default function UserAnalysis(props) {
         </Grid>
 
         <br />
-        <div style={{ border: '1px solid green', marginBottom: 25}} />
+        <div style={{paddingBottom: 50}} />
         
     </div>
   );

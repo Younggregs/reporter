@@ -189,7 +189,7 @@ export default function UserAnalysis(props) {
     }
 
   return (
-    <div>
+    <div className={classes.root}>
         
         <DashboardNavbar title={`Report Analysis`}/> 
 
@@ -356,7 +356,7 @@ export default function UserAnalysis(props) {
         </Grid>
 
         <br />
-        <div style={{ border: '1px solid green', marginBottom: 25}} />
+        <div style={{ paddingBottom: 50}} />
         
     </div>
   );

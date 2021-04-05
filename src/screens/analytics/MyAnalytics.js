@@ -100,7 +100,7 @@ export default function MyAnalytics(props) {
     
 
   return (
-    <div style={{background: 'rgb(224, 245, 228)'}}>
+    <div className={classes.root}>
         
         <DashboardNavbar title={`My Report Analytics`}/> 
 
@@ -140,6 +140,9 @@ export default function MyAnalytics(props) {
             <MyPieChart data={list} />
           </Grid>
         </Grid>
+
+        <br />
+        <div style={{paddingBottom: 50}} />
         
     </div>
   );

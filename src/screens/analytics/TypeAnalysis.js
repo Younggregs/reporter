@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button1 from '../../components/Button'
-import PieChart from '../../components/PieChart'
+import TypeChart from '../../components/TypeChart'
 import Button from '@material-ui/core/Button'
 import DashboardNavbar from '../../partials/DashboardNavbar'
 import Dialog from '@material-ui/core/Dialog'
@@ -173,7 +173,7 @@ export default function TypeAnalysis(props) {
   const canSave = [startDate, endDate].every(Boolean)
 
   return (
-    <div>
+    <div className={classes.root}>
         
         <DashboardNavbar title={`Report Type Analysis`}/> 
 
@@ -283,9 +283,12 @@ export default function TypeAnalysis(props) {
 
         <Grid container direction="column" justify="center" alignItems="center">
           <Grid className="col-md-6">
-            <PieChart data={list} />
+            <TypeChart data={list} />
           </Grid>
         </Grid>
+
+        <br />
+        <div style={{ paddingBottom: 50}} />
         
     </div>
   );
