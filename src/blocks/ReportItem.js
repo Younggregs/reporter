@@ -132,6 +132,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 5, 
     fontSize: 20,
     color:  '#000',
+    lineHeight: 1.0
   },
   moreStyle: {
     fontSize: 15,
