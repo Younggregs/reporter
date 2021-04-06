@@ -34,8 +34,8 @@ const InnerNavbar = (props) => {
                             <div className="list-drop" tabIndex="0">
                                 <Settings color={'#000'} style={{color: '#000'}}/>
                                 <div className="popout-drop">
-                                    <a href="/my_analytics"> <NavDirectory className="mr-3" />My Report Analytics<ArrowRight className="icon-right" /> </a>
-                                    <a href="/logout"> <NavLogOut className="mr-3" />Log out<ArrowRight className="icon-right" /> </a>
+                                    <Link to="/my_analytics"> <NavDirectory className="mr-3" />My Report Analytics<ArrowRight className="icon-right" /> </Link>
+                                    <Link to="/logout"> <NavLogOut className="mr-3" />Log out<ArrowRight className="icon-right" /> </Link>
                                 </div>
                             </div>
                         </div>
