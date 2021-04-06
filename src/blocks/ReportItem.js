@@ -12,9 +12,7 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import Paper from '@material-ui/core/Paper';
 import { ReactComponent as Pen } from '../assets/svg/Pen.svg';
 import { ReactComponent as Bin } from '../assets/svg/Bin.svg';
-import TextField from '@material-ui/core/TextField'
-import editGuide from '../promises/EditGuide'
-import deleteGuide from '../promises/DeleteGuide'
+import deleteReport from '../promises/DeleteReport'
 
 
 function Alert(props) {
@@ -146,9 +144,6 @@ const useStyles = makeStyles((theme) => ({
 export default function ReportItem(props) {
   const classes = useStyles();
 
-  const [guide, setGuide] = useState(props.item.guide);
-  const [ttc, setTtc] = useState(props.item.total_travel_cost);
-  const [ttt, setTtt] = useState(props.item.total_travel_time);
   const [openalert, setOpenalert] = useState(false);
   const [openedit, setOpenedit] = useState(false);
   const [opendelete, setOpendelete] = useState(false);
@@ -212,27 +207,16 @@ export default function ReportItem(props) {
     setOpendelete(false);
   };
 
-  const handleChangeGuide = (event) => {
-    setGuide(event.target.value);
-  };
-
-  const handleChangeTtc = (event) => {
-    setTtc(event.target.value);
-  };
-
-  const handleChangeTtt = (event) => {
-    setTtt(event.target.value);
-  };
-
 
 
 const handleEdit = async (id) => {
 
+ 
   setOpenedit(false)
   setOpenalert(true)
   setAlertmsg('Submitting Guide')
 
-  const message = await editGuide(id, guide, ttc, ttt)
+  const message = await deleteReport(id)
   setOpenalert(true)
   if(message.error_message){
     setAlertmsg(message.error_message)
@@ -242,6 +226,7 @@ const handleEdit = async (id) => {
     setAlertmsg('Guide edited succesfully')
     //setLink(message)
   }
+
         
 }
 
@@ -249,16 +234,16 @@ const handleDelete = async (id) => {
 
   setOpendelete(false)
   setOpenalert(true)
-  setAlertmsg('Deleting Guide')
+  setAlertmsg('Deleting Report')
 
-  const message = await deleteGuide(id)
+  const message = await deleteReport(id)
 
   setOpenalert(true)
   if(message.error_message){
     setAlertmsg(message.error_message)
   }else{
     setDeleted(true)
-    setAlertmsg('Guide deleted succesfully')
+    setAlertmsg('Report deleted succesfully')
   }
 
 }
@@ -307,28 +292,6 @@ return (
                       <DialogContentText>
                           It's all about the network.
                       </DialogContentText>
-    
-                      <Grid className={classes.formField}>  
-                          <TextField 
-                            autoFocus 
-                            id="guide" 
-                            label="Guide" 
-                            multiline        
-                            rows={4}
-                            cols={100}
-                            style={{width: 300}}
-                            defaultValue={brick.guide} 
-                            onChange={handleChangeGuide} 
-                            required fullWidth/>
-                      </Grid>
-
-                      <Grid className={classes.formField}>  
-                          <TextField id="ttt" label="Total Travel Time" defaultValue={brick.total_travel_time} onChange={handleChangeTtt} required fullWidth/>
-                      </Grid>
-
-                      <Grid className={classes.formField}>  
-                          <TextField id="ttc" label="Total Travel Cost" defaultValue={brick.total_travel_cost} onChange={handleChangeTtc} required fullWidth/>
-                      </Grid>
     
                       </DialogContent>
                     <DialogActions>
@@ -439,12 +402,19 @@ return (
                 </DialogActions>
               </Dialog>
             </Grid>
+          
+            */}
             <Grid className={classes.iconButton}>
             <Button onClick={handleClickOpenDelete}>
                   <Bin />
             </Button>
             <Dialog fullWidth={true} maxWidth={'sm'} open={opendelete} onClose={handleCloseDelete} aria-labelledby="form-dialog-delete">
-                <DialogTitle id="form-dialog-title">Are you sure you want to delete this Guide? {props.item.name}</DialogTitle>
+                <DialogTitle id="form-dialog-title">
+                    <p>Are you sure you want to delete this Report?</p>
+                    <p style={{fontSize: 12, color: 'green'}}>{props.item.report_deed.slice(0, 100)}...</p>
+                    <p>Deleted reports cannot be recovered or restored</p>
+                    <p>Are you sure you want to proceed?</p>  
+                </DialogTitle>
                 <DialogActions>
                   <Button onClick={handleCloseDelete} color="primary">
                       Cancel
@@ -455,7 +425,6 @@ return (
                 </DialogActions>
               </Dialog>
             </Grid>
-            */}
           </Grid>
         </Grid>
 

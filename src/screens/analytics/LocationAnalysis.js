@@ -174,7 +174,9 @@ export default function TypeAnalysis(props) {
   return (
     <div className={classes.root}>
         
-        <DashboardNavbar title={`Report Location Analysis`}/> 
+        <div style={{ margin: 0, paddingBottom: 200}}>
+          <DashboardNavbar title={`Report Location Analysis`}/> 
+        </div>
 
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h5 style={{textAlign: 'center', margin: 10}}>Report Location Analysis</h5>

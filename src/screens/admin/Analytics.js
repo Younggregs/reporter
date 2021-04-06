@@ -60,7 +60,7 @@ export default function Analytics(props) {
 
   return (
     <div style={{background: 'rgb(224, 245, 228)', minHeight: '100vh'}}>
-      <div style={{ margin: 0, paddingBottom: 200}}>
+      <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar analytics={true}/> 
       </div>
         <Box style={{background: 'rgb(224, 245, 228)'}}>

@@ -8,7 +8,7 @@ import AuthLayout from './services/AuthLayout'
 import loadable from '@loadable/component'
 import Loading from './components/Loading';
 
-// Non-authentication pages begins here
+/* Non-authentication pages begins here
 const Help = loadable(() => import('./screens/pages/Help'), {
     fallback: Loading,
 })
@@ -30,7 +30,7 @@ const Disclaimer = loadable(() => import('./screens/pages/Disclaimer'), {
 const FAQ = loadable(() => import('./screens/pages/FAQ'), {
     fallback: Loading,
 })
-
+*/
 
 // Authentication pages begins here
 const Fence = loadable(() => import('./screens/auth/Fence'), {
@@ -73,6 +73,9 @@ const ReportAnalysis = loadable(() => import('./screens/analytics/ReportAnalysis
     fallback: Loading,
 })
 const MyAnalytics = loadable(() => import('./screens/analytics/MyAnalytics'), {
+    fallback: Loading,
+})
+const EditPassword = loadable(() => import('./screens/auth/EditPassword'), {
     fallback: Loading,
 })
 const NotFound = loadable(() => import('./screens/pages/NotFound'), {
@@ -143,26 +146,8 @@ export default class Routes extends Component {
                         path="/my_analytics"
                         component={MyAnalytics} />
                     <AuthRoutes
-                        path="/help"
-                        component={Help} />
-                    <AuthRoutes
-                        path="/faq"
-                        component={FAQ} />
-                    <AuthRoutes
-                        path="/about"
-                        component={About} />
-                    <AuthRoutes
-                        path="/contact"
-                        component={Contact} />
-                    <AuthRoutes
-                        path="/privacy"
-                        component={Privacy} />
-                    <AuthRoutes
-                        path="/disclaimer"
-                        component={Disclaimer} />
-                    <AuthRoutes
-                        path="/terms"
-                        component={Terms} />
+                        path="/edit_password"
+                        component={EditPassword} />
                     <Route component={NotFound}/>
                 </Switch>
             </Router>

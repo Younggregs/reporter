@@ -14,6 +14,7 @@ const SUPER_USER_URL = `${API_ROOT_URL}/superuser/`
 
 const GET_NAME_URL = `${API_ROOT_URL}/guide/`;
 
+
 /*
     Location routes
 */
@@ -55,7 +56,7 @@ const MY_REPORT_AGGREGATE_URL = `${API_ROOT_URL}/my_report_aggregate/`;
     Report routes
 */
 const REPORT_URL = `${API_ROOT_URL}/report/`;
-
+const DELETE_REPORT_URL = `${API_ROOT_URL}/delete_report/`;
 
 /*
     Admin routes
@@ -69,6 +70,7 @@ const POLLING_UNIT_URL = `${API_ROOT_URL}/pollingunits/`;
     User routes
 */
 const USER_URL = `${API_ROOT_URL}/user/`;
+const EDIT_PASSWORD_URL = `${API_ROOT_URL}/edit_password/`;
 
 const GUIDE_URL = `${API_ROOT_URL}/guide/`;
 const NEW_GUIDE_URL = `${API_ROOT_URL}/new_guide/`;
@@ -102,6 +104,8 @@ export {
     SUPER_USER_URL,
     LOCATION_URL,
     USER_URL,
+    EDIT_PASSWORD_URL,
+    DELETE_REPORT_URL,
     USER_AGGREGATE_URL,
     TYPE_AGGREGATE_URL,
     LOCATION_AGGREGATE_URL,

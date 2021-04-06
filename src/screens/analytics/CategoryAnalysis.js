@@ -174,7 +174,9 @@ export default function ImpactAnalysis(props) {
   return (
     <div className={classes.root}>
         
-        <DashboardNavbar title={`Incident Category Analysis`}/> 
+        <div style={{ margin: 0, paddingBottom: 200}}>
+          <DashboardNavbar title={`Incident Category Analysis`}/> 
+        </div>
 
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h5 style={{textAlign: 'center', margin: 10}}>Incident Category Analysis</h5>

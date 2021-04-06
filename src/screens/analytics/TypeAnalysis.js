@@ -175,7 +175,9 @@ export default function TypeAnalysis(props) {
   return (
     <div className={classes.root}>
         
-        <DashboardNavbar title={`Report Type Analysis`}/> 
+        <div style={{ margin: 0, paddingBottom: 200}}>
+          <DashboardNavbar title={`Report Type Analysis`}/>
+        </div> 
 
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h5 style={{textAlign: 'center', margin: 10}}>Report Type Analytics</h5>

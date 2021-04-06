@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button1 from '../../components/Button'
+import UserChart from '../../components/UserChart'
 import Button from '@material-ui/core/Button'
 import DashboardNavbar from '../../partials/DashboardNavbar'
 import Dialog from '@material-ui/core/Dialog'
@@ -173,10 +174,12 @@ export default function UserAnalysis(props) {
   return (
     <div className={classes.root}>
         
-        <DashboardNavbar title={`User Analysis`}/> 
+        <div style={{ margin: 0, paddingBottom: 200}}>
+          <DashboardNavbar title={`User Analysis`}/> 
+        </div>
 
         <Box style={{background: 'rgb(224, 245, 228)'}}>
-            <h5 style={{textAlign: 'center', margin: 10}}>User Report Aggregate Analysis</h5>
+            <h5 style={{textAlign: 'center', paddingTop: 200}}>User Report Aggregate Analysis</h5>
         </Box> 
 
         <Grid className="new-location" direction="column" justify="center" alignItems="center">
@@ -269,7 +272,20 @@ export default function UserAnalysis(props) {
         </Grid>
 
         <br />
-        <div style={{paddingBottom: 50}} />
+        <div style={{ border: '1px solid green', marginBottom: 25}} />
+        
+        <Box>
+            <h4 style={{textAlign: 'center', margin: 10}}>Pie Chart</h4>
+        </Box> 
+
+        <Grid container direction="column" justify="center" alignItems="center">
+          <Grid className="col-md-6">
+            <UserChart data={list} />
+          </Grid>
+        </Grid>
+
+        <br />
+        <div style={{ paddingBottom: 50}} />
         
     </div>
   );

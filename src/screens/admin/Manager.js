@@ -62,7 +62,7 @@ export default function Manager(props) {
 
   return (
     <div className={classes.root}>
-      <div style={{ margin: 0, paddingBottom: 200}}>
+      <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar manager={true}/> 
       </div>
         <Box style={{background: 'rgb(224, 245, 228)'}}>

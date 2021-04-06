@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -12,8 +12,9 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import Paper from '@material-ui/core/Paper';
 import { ReactComponent as Pen } from '../assets/svg/Pen.svg';
 import { ReactComponent as Bin } from '../assets/svg/Bin.svg';
-import editGuide from '../promises/EditGuide'
-import deleteGuide from '../promises/DeleteGuide'
+import TextField from '@material-ui/core/TextField'
+import editUser from '../promises/EditUser'
+import deleteUser from '../promises/DeleteUser'
 
 
 function Alert(props) {
@@ -125,13 +126,29 @@ const useStyles = makeStyles((theme) => ({
 export default function UserItem(props) {
   const classes = useStyles();
 
-  const [openalert, setOpenalert] = React.useState(false);
-  const [openedit, setOpenedit] = React.useState(false);
-  const [opendelete, setOpendelete] = React.useState(false);
-  const [alertmsg, setAlertmsg] = React.useState();
-  const [deleted, setDeleted] = React.useState(false);
-  const [edited, setEdited] = React.useState(false);
-  const [brick, setBrick] = React.useState({});
+  const [openalert, setOpenalert] = useState(false);
+  const [openedit, setOpenedit] = useState(false);
+  const [opendelete, setOpendelete] = useState(false);
+  const [alertmsg, setAlertmsg] = useState();
+  const [deleted, setDeleted] = useState(false);
+  const [edited, setEdited] = useState(false);
+  const [brick, setBrick] = useState({});
+  const [password, setPassword] = useState()
+
+  const [stop, setStop] = useState(true)
+  const [superUser, setSuperUser] = useState(false)
+
+  const onPasswordChanged = e => setPassword(e.target.value)
+
+  const isSuper = async () => {
+      var superUser = await localStorage.getItem('isSuperUser')
+      if(superUser === 'true'){ setSuperUser(true) }else{ setSuperUser(false)}
+      setStop(false)
+  }
+
+  if(stop){
+      isSuper()
+  } 
 
 
   const handleCloseAlert = (event, reason) => {
@@ -172,19 +189,23 @@ export default function UserItem(props) {
 
 const handleEdit = async (id) => {
 
-  setOpenedit(false)
-  setOpenalert(true)
-  setAlertmsg('Submitting Guide')
+  if (canSave) {
+      setOpenedit(false)
+      setOpenalert(true)
+      setAlertmsg('Submitting User')
 
-  const message = await editGuide(id)
-  setOpenalert(true)
-  if(message.error_message){
-    setAlertmsg(message.error_message)
+      const message = await editUser(id, password)
+      setOpenalert(true)
+      if(message.error_message){
+        setAlertmsg(message.error_message)
+      }else{
+        setEdited(true);
+        setBrick(message);
+        setAlertmsg('User edited succesfully')
+        //setLink(message)
+      }
   }else{
-    setEdited(true);
-    setBrick(message);
-    setAlertmsg('Guide edited succesfully')
-    //setLink(message)
+    setAlertmsg('Password field cannot be empty')
   }
         
 }
@@ -193,16 +214,16 @@ const handleDelete = async (id) => {
 
   setOpendelete(false)
   setOpenalert(true)
-  setAlertmsg('Deleting Guide')
+  setAlertmsg('Deleting User')
 
-  const message = await deleteGuide(id)
+  const message = await deleteUser(id)
 
   setOpenalert(true)
   if(message.error_message){
     setAlertmsg(message.error_message)
   }else{
     setDeleted(true)
-    setAlertmsg('Guide deleted succesfully')
+    setAlertmsg('User deleted succesfully')
   }
 
 }
@@ -218,6 +239,9 @@ const renderUser = (toggle) => {
 }
 
 
+const canSave = [password].every(Boolean)
+
+
 
 return (
     <div className={classes.root}>
@@ -231,27 +255,49 @@ return (
                 <Grid className={classes.linksView}>
                 <Grid className={classes.links}>
                 
-                <Grid className={classes.linkText}>
-                    <p>{props.item.from} to {props.item.to}</p>
-                    <p>Vehicle: {props.item.vehicle}</p>
+                <Grid container direction="column">
+                  <p className={classes.name}>{brick.name}</p>
+                  <br />
+                      <div style={{ border: '1px solid green', marginBottom: 25}} />
+                  <p className={classes.linkText}>Email</p>
+                  <p className={classes.text}>{brick.email}</p>
+                  <p className={classes.linkText}>Is SuperUser</p>
+                  <p className={classes.text}>{renderUser(brick.isSuperUser)}</p>
                 </Grid>
                 <Grid className={classes.iconButton}>
                 <Button onClick={handleClickOpenEdit}>
                     <Pen />
                 </Button>
                   <Dialog fullWidth={true} maxWidth={'sm'} open={openedit} onClose={handleCloseEdit} aria-labelledby="form-dialog-edit">
-                      <DialogTitle id="form-dialog-title">Edit Guide</DialogTitle>
+                      <DialogTitle id="form-dialog-title">Edit User Password</DialogTitle>
                       <DialogContent>
                       <DialogContentText>
                           It's all about the network.
                       </DialogContentText>
+
+                      <Grid className={classes.formField}>  
+                        <TextField 
+                          id="Name" 
+                          label="name"
+                          value={props.item.name} 
+                          fullWidth/>
+                    </Grid>
+
+                    <Grid className={classes.formField}>  
+                        <TextField  
+                          id="password" 
+                          label="Set New Password"
+                          defaultValue={props.item.password} 
+                          onChange={onPasswordChanged} 
+                          fullWidth/>
+                    </Grid>
     
                       </DialogContent>
                     <DialogActions>
                       <Button onClick={handleCloseEdit} color="primary">
                           Cancel
                       </Button>
-                      <Button onClick={() => handleEdit(brick.id)} color="primary">
+                      <Button onClick={() => handleEdit(brick.id)} disabled={!canSave} color="primary">
                           Submit
                       </Button>
                     </DialogActions>
@@ -262,7 +308,11 @@ return (
                       <Bin />
                 </Button>
                 <Dialog fullWidth={true} maxWidth={'sm'} open={opendelete} onClose={handleCloseDelete} aria-labelledby="form-dialog-delete">
-                    <DialogTitle id="form-dialog-title">Are you sure you want to delete this Guide? {brick.name}</DialogTitle>
+                    <DialogTitle id="form-dialog-title">
+                      <p>Are you sure you want to delete this User? ({brick.name})</p>
+                      <p>If you delete user, ALL reports and data associated with user would be deleted as well</p>
+                      <p>Are yo u sure you want to proceed with this action? </p>  
+                    </DialogTitle>
                     <DialogActions>
                       <Button onClick={handleCloseDelete} color="primary">
                           Cancel
@@ -289,13 +339,14 @@ return (
                 <p className={classes.linkText}>Is SuperUser</p>
                 <p className={classes.text}>{renderUser(props.item.isSuperUser)}</p>
             </Grid>
-            {/*
+            {superUser && (
+            <Grid>
             <Grid className={classes.iconButton}>
             <Button onClick={handleClickOpenEdit}>
                   <Pen />
             </Button>
               <Dialog fullWidth={true} maxWidth={'sm'} open={openedit} onClose={handleCloseEdit} aria-labelledby="form-dialog-edit">
-                  <DialogTitle id="form-dialog-title">Edit Guide</DialogTitle>
+                  <DialogTitle id="form-dialog-title">Edit User Password</DialogTitle>
                   <DialogContent>
                   <DialogContentText>
                       It's all about the network.
@@ -303,24 +354,19 @@ return (
 
                   <Grid className={classes.formField}>  
                       <TextField 
-                        autoFocus 
-                        id="guide" 
-                        label="Guide"
-                        multiline        
-                        rows={4}
-                        cols={20}
-                        defaultValue={props.item.guide} 
-                        onChange={handleChangeGuide} 
-                        required 
+                        id="Name" 
+                        label="name"
+                        value={props.item.name} 
                         fullWidth/>
                   </Grid>
 
                   <Grid className={classes.formField}>  
-                      <TextField id="ttt" label="Total Travel Time" defaultValue={props.item.total_travel_time} onChange={handleChangeTtt} required fullWidth/>
-                  </Grid>
-
-                  <Grid className={classes.formField}>  
-                      <TextField id="ttc" label="Total Travel Cost" defaultValue={props.item.total_travel_cost} onChange={handleChangeTtc} required fullWidth/>
+                      <TextField  
+                        id="password" 
+                        label="Set New Password"
+                        defaultValue={props.item.password} 
+                        onChange={onPasswordChanged} 
+                        fullWidth/>
                   </Grid>
 
                   </DialogContent>
@@ -328,7 +374,7 @@ return (
                   <Button onClick={handleCloseEdit} color="primary">
                       Cancel
                   </Button>
-                  <Button onClick={() => handleEdit(props.item.id)} color="primary">
+                  <Button onClick={() => handleEdit(props.item.id)} disabled={!canSave} color="primary">
                       Submit
                   </Button>
                 </DialogActions>
@@ -339,7 +385,11 @@ return (
                   <Bin />
             </Button>
             <Dialog fullWidth={true} maxWidth={'sm'} open={opendelete} onClose={handleCloseDelete} aria-labelledby="form-dialog-delete">
-                <DialogTitle id="form-dialog-title">Are you sure you want to delete this Guide? {props.item.name}</DialogTitle>
+                <DialogTitle id="form-dialog-title">
+                  <p>Are you sure you want to delete this User? ({props.item.name})</p>
+                  <p>If you delete user, ALL reports and data associated with user would be deleted as well</p>
+                  <p>Are yo u sure you want to proceed with this action? </p>
+                </DialogTitle>
                 <DialogActions>
                   <Button onClick={handleCloseDelete} color="primary">
                       Cancel
@@ -350,7 +400,8 @@ return (
                 </DialogActions>
               </Dialog>
             </Grid>
-            */}
+            </Grid>
+            )}
           </Grid>
         </Grid>
 

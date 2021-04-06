@@ -11,7 +11,7 @@ import myAggregate from '../../promises/MyAggregate';
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    background: 'rgb(224, 245, 228)'
+    background: 'rgb(224, 245, 228)',
   },
   editView:{
     alignItems: 'center',
@@ -102,7 +102,9 @@ export default function MyAnalytics(props) {
   return (
     <div className={classes.root}>
         
-        <DashboardNavbar title={`My Report Analytics`}/> 
+        <div style={{ margin: 0, paddingBottom: 200}}>
+          <DashboardNavbar title={`My Report Analytics`}/> 
+        </div>
 
         <Box>
             <h5 style={{textAlign: 'center', paddingTop: 200}}>My Report Analytics</h5>

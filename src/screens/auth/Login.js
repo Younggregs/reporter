@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import '../../styles/Auth.css'
 import Button from '../../components/Button'
 import login from '../../promises/Login'
 import signin from '../../store'
 import isSuperUser from '../../promises/IsSuperUser'
+import MainLogo from  '../../components/MainLogo'
 
 export default function Login() {
     const [loading, setLoading] = useState(false)
@@ -52,12 +53,13 @@ export default function Login() {
     }
 
     return (
-        <div className="auth-background">
-            <div className="auth-container">
-                <h1>Incident Reporting System</h1><br /><br />
-                <h3>Welcome</h3>
-                <p>Proceed with login</p>
-                <form onSubmit={handleSubmit}>
+        <div style={{background: 'rgb(224, 245, 228)'}} className="auth-background">
+            <div style={{background: '#19461A', color: '#fff'}} className="auth-container">
+                <MainLogo />
+                <h1>PEF(M)B Incident Reporting System</h1><br /><br />
+                <h3 style={{color: '#fff'}}>Welcome</h3>
+                <p style={{color: '#fff'}}>Proceed with login</p>
+                <form style={{color: '#000'}} onSubmit={handleSubmit}>
                     <div className="position-relative">
                         <span>Email</span>
                         <input 
@@ -78,11 +80,12 @@ export default function Login() {
                             onChange={onPasswordChanged}
                             onKeyDown={(e) => _handleKeyDownSubmit(e)}/>
                     </div>
-                    <div>
+                    {/*<div>
                         <p className="already"><Link to="/forgotpassword" className="sign">Forgot Password</Link></p>
                     </div>
+                    */}
                     <div className="mt-4 mb-3">
-                        <Button handleClick={() => submit()} title={loading ? "Processing..." : "Continue"} />
+                        <Button style={{border: '1px solid #fff'}} handleClick={() => submit()} title={loading ? "Processing..." : "Continue"} />
                     </div>
                 </form>
                 

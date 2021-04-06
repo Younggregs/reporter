@@ -25,6 +25,7 @@ const InnerNavbar = (props) => {
 
     return (
         <div className="onepage-navbar-inner">
+            <h1 style={{textAlign: 'center'}}>PEF(M)B Incident Reporting System</h1>
             <nav className="navbar container">
                 <div className="nav">
                 <input type="checkbox" id="nav-check" />
@@ -32,9 +33,12 @@ const InnerNavbar = (props) => {
                         <MainLogo />
                         <div className="mobile-navbar">
                             <div className="list-drop" tabIndex="0">
-                                <Settings color={'#000'} style={{color: '#000'}}/>
+                                <div style={{ width: 30, height: 30, background: '#fff', borderRadius: 50}}>
+                                    <Settings />
+                                </div>
                                 <div className="popout-drop">
                                     <Link to="/my_analytics"> <NavDirectory className="mr-3" />My Report Analytics<ArrowRight className="icon-right" /> </Link>
+                                    <Link to="/edit_password"> <NavDirectory className="mr-3" />Edit Password<ArrowRight className="icon-right" /> </Link>
                                     <Link to="/logout"> <NavLogOut className="mr-3" />Log out<ArrowRight className="icon-right" /> </Link>
                                 </div>
                             </div>
@@ -45,7 +49,7 @@ const InnerNavbar = (props) => {
                                 <div className="inner-header">
                                     <ul>
                                         {superUser && (
-                                            <li className="col-md-3">
+                                        <li className="col-md-3">
                                             <Link 
                                                 className={props.user ? ("active") : ("")} 
                                                 to='/user'
@@ -91,10 +95,13 @@ const InnerNavbar = (props) => {
                                 <ul>
                                     <li>
                                         <div className="list-drop" tabIndex="0">
-                                            <Settings color={'#000'} style={{color: '#000'}}/>
+                                            <div style={{ width: 30, height: 30, background: '#fff', borderRadius: 50}}>
+                                                <Settings />
+                                            </div>
                                             <div className="popout-drop">
-                                                <a href="/my_analytics"> <NavDirectory className="mr-3" />My Report Analytics<ArrowRight className="icon-right" /> </a>
-                                                <a href="/logout"> <NavLogOut className="mr-3" />Log out<ArrowRight className="icon-right" /> </a>
+                                                <Link to="/my_analytics"> <NavDirectory className="mr-3" />My Report Analytics<ArrowRight className="icon-right" /> </Link>
+                                                <Link to="/edit_password"> <NavDirectory className="mr-3" />Edit Password<ArrowRight className="icon-right" /> </Link>
+                                                <Link to="/logout"> <NavLogOut className="mr-3" />Log out<ArrowRight className="icon-right" /> </Link>
                                             </div>
                                         </div>
                                     </li>
