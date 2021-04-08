@@ -1,6 +1,6 @@
 import { REPORT_URL }  from '../constants'
 
-async function newUser(selectedDate, location, category, impact, type, description, deed){
+async function newReport(selectedDate, location, category, impact, type, description, deed, exactLocation){
 
       var formData = new FormData()
       formData.append('report_date', selectedDate)
@@ -10,6 +10,7 @@ async function newUser(selectedDate, location, category, impact, type, descripti
       formData.append('type', type)
       formData.append('description', description)
       formData.append('deed', deed)
+      formData.append('exactLocation', exactLocation)
 
       const auth = await localStorage.getItem('auth')
 
@@ -31,4 +32,4 @@ async function newUser(selectedDate, location, category, impact, type, descripti
       return false
 }
 
-export default newUser
+export default newReport

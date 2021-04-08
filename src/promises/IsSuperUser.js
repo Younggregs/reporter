@@ -9,9 +9,10 @@ async function isSuperUser(){
                 'Authorization' : 'Token ' + auth,
             },
         })
-        const message = await res.json();
-        localStorage.setItem('isSuperUser', message)
-        return message
+        const user = await res.json();
+        localStorage.setItem('isSuperUser', user.isSuperUser)
+        localStorage.setItem('name', user.name)
+        return user
       } catch (e) {
         console.log(e);
       }

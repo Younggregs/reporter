@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import UserItem from '../../blocks/UserItem'
+import UserName from '../../blocks/UserName'
 import Button1 from '../../components/Button'
 import Button from '@material-ui/core/Button'
 import newUser from '../../promises/NewUser'
@@ -140,6 +141,7 @@ export default function User(props) {
       <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar user={true}/> 
       </div>
+        <UserName />
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h3 style={{textAlign: 'center', margin: 10}}>Manage users</h3>
         </Box> 

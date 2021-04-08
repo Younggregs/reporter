@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ReportItem from '../../blocks/ReportItem'
+import UserName from '../../blocks/UserName'
 import Button1 from '../../components/Button'
 import Button from '@material-ui/core/Button'
 import newReport from '../../promises/NewReport'
@@ -88,12 +89,14 @@ export default function User(props) {
     const [description, setDescription] = React.useState(false)
     const [locations, setLocations] = React.useState([])
     const [location, setLocation] = React.useState(999)
+    const [exactLocation, setExactLocation] = React.useState(999)
     const [type, setType] = useState(999)
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [sortDate, setSortDate] = React.useState(999);
 
     const onDescriptionChanged = e => setDescription(e.target.value)
     const onDeedChanged = e => setDeed(e.target.value)
+    const onExactLocationChanged = e => setExactLocation(e.target.value)
 
     const handleDateChange = (date) => {
       setSelectedDate(date);
@@ -178,7 +181,7 @@ export default function User(props) {
     if (canSave) {
         setError('')
         setList([])
-        const res = await newReport(selectedDate, location, category, impact, type, description, deed)
+        const res = await newReport(selectedDate, location, category, impact, type, description, deed, exactLocation)
         if(res){
             if(res.error_message){
               setError(res.error_message)
@@ -222,7 +225,7 @@ export default function User(props) {
 
   }
 
-  const canSave = [selectedDate, location, category, impact, type, description, deed].every(Boolean)
+  const canSave = [selectedDate, location, exactLocation, category, impact, type, description, deed].every(Boolean)
 
 
   return (
@@ -230,6 +233,7 @@ export default function User(props) {
       <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar report={true}/> 
       </div>
+        <UserName />
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h3 style={{textAlign: 'center', margin: 10}}>Incident Reports</h3>
         </Box> 
@@ -304,6 +308,18 @@ export default function User(props) {
             </Grid>
 
 
+            <Grid className={classes.formField}>  
+                <TextField 
+                  id="location" 
+                  label="Exact Location" 
+                  placeholder="eg Lagos"
+                  onChange={onExactLocationChanged}
+                  fullWidth
+                  required
+                />
+            </Grid>
+
+
             <Grid className={classes.formField}>
               {categories.length <= '0' ? (
                 <p>Fetching Incident Category... </p>
@@ -358,7 +374,9 @@ export default function User(props) {
                   multiline
                   onChange={onDescriptionChanged}
                   rows={4}
-                  fullWidth/>
+                  fullWidth
+                  required
+                />
             </Grid>
 
             <Grid className={classes.formField}>  
@@ -368,7 +386,9 @@ export default function User(props) {
                   multiline
                   rows={4}
                   onChange={onDeedChanged}
-                  fullWidth/>
+                  fullWidth
+                  required
+                />
             </Grid>
 
             <p style={{color: '#ff0000'}}>{error}</p>

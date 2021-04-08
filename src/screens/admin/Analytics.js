@@ -5,6 +5,7 @@ import Button1 from '../../components/Button'
 import InnerNavbar from '../../partials/InnerNavbar'
 import Box from '@material-ui/core/Box'
 import Grid from '@material-ui/core/Grid'
+import UserName from '../../blocks/UserName'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,6 +64,7 @@ export default function Analytics(props) {
       <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar analytics={true}/> 
       </div>
+        <UserName />
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h3 style={{textAlign: 'center', margin: 10}}>Analytics</h3>
         </Box> 

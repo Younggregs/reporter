@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import Grid from '@material-ui/core/Grid'
@@ -13,6 +14,20 @@ import Paper from '@material-ui/core/Paper';
 import { ReactComponent as Pen } from '../assets/svg/Pen.svg';
 import { ReactComponent as Bin } from '../assets/svg/Bin.svg';
 import deleteReport from '../promises/DeleteReport'
+import toggleCompleted from '../promises/ToggleCompleted'
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
+const CompletedCheckbox = withStyles({
+  root: {
+    color: 'green',
+    '&$checked': {
+      color: 'green',
+    },
+  },
+  checked: {},
+})((props) => <Checkbox color="default" {...props} />);
 
 
 function Alert(props) {
@@ -152,10 +167,11 @@ export default function ReportItem(props) {
   const [deleted, setDeleted] = useState(false);
   const [edited, setEdited] = useState(false);
   const [brick, setBrick] = useState({});
-  const [readMore, setReadMore]=useState(false);
-  const [readMoreB, setReadMoreB]=useState(false);
+  const [readMore, setReadMore]= useState(false);
+  const [readMoreB, setReadMoreB]= useState(false);
+  const [completed, setCompleted]= useState(props.item.completed);
 
-
+  console.log('report', props.item)
   const convertdate = (date) => {
     var d = new Date(date)
     var year = d.getFullYear()
@@ -172,6 +188,13 @@ export default function ReportItem(props) {
 
     return res.toString()
   }
+
+  const handleChangeCompleted = async (event) => {
+    setCompleted(event.target.checked)
+
+    var res = await toggleCompleted(props.item.id)
+    setCompleted(res)
+  };
 
 
   const handleCloseAlert = (event, reason) => {
@@ -331,14 +354,21 @@ return (
             <Grid container direction="column">
                     <p className={classes.name}>{props.item.reporter_name}</p>
                     <p className={classes.dateText}>{convertdate(props.item.report_date)}</p>
+                    
                     <br />
+                    <div style={{ border: '1px solid green', marginBottom: 25}} />
+                    <p className={classes.linkTextColored}>Report Type</p>
+                    <p className={classes.text}>{props.item.report_type}</p>
+                    <p className={classes.linkTextColored}>Report Location</p>
+                    <p className={classes.text}>{props.item.report_location}</p>
+                    <p className={classes.linkTextColored}>Exact Report Location</p>
+                    <p className={classes.text}>{props.item.exact_location}</p>
+                    <p className={classes.linkTextColored}>Report Category</p>
+                    <p className={classes.text}>{props.item.incident_category}</p>
+                    <p className={classes.linkTextColored}>Report Impact</p>
+                    <p className={classes.text}>{props.item.report_impact}</p>
 
-                    <p className={classes.linkTextColored}>Report Act</p>
-                    <p className={classes.text}>
-                      {readMore ? (props.item.report_deed) : (trimText(props.item.report_deed))}
-                      <p>{readMore}</p>
-                      <span className={classes.moreStyle} onClick={()=>{setReadMore(!readMore)}}>{linkName}</span>
-                    </p>
+                    <br />
 
                     <p className={classes.linkTextColored}>Report Description</p>
                     <p className={classes.text}>
@@ -347,16 +377,17 @@ return (
                       <span className={classes.moreStyle} onClick={()=>{setReadMoreB(!readMoreB)}}>{linkNameB}</span>
                     </p>
 
+                    <p className={classes.linkTextColored}>Report Act</p>
+                    <p className={classes.text}>
+                      {readMore ? (props.item.report_deed) : (trimText(props.item.report_deed))}
+                      <p>{readMore}</p>
+                      <span className={classes.moreStyle} onClick={()=>{setReadMore(!readMore)}}>{linkName}</span>
+                    </p>
                     <br />
-                    <div style={{ border: '1px solid green', marginBottom: 25}} />
-                    <p className={classes.linkTextColored}>Report Type</p>
-                    <p className={classes.text}>{props.item.report_type}</p>
-                    <p className={classes.linkTextColored}>Report Location</p>
-                    <p className={classes.text}>{props.item.report_location}</p>
-                    <p className={classes.linkTextColored}>Report Category</p>
-                    <p className={classes.text}>{props.item.incident_category}</p>
-                    <p className={classes.linkTextColored}>Report Impact</p>
-                    <p className={classes.text}>{props.item.report_impact}</p>
+                    <FormControlLabel
+                      control={<CompletedCheckbox checked={completed} onChange={handleChangeCompleted} name="completed" />}
+                      label="Completed"
+                    />
             </Grid>
             {/*
             <Grid className={classes.iconButton}>

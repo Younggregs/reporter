@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import UserName from '../../blocks/UserName'
 import ManageLocation from './ManageLocation'
 import ManageCategory from './ManageCategory'
 import ManageImpact from './ManageImpact'
@@ -65,6 +66,7 @@ export default function Manager(props) {
       <div style={{ margin: 0, paddingBottom: 300}}>
         <InnerNavbar manager={true}/> 
       </div>
+        <UserName />
         <Box style={{background: 'rgb(224, 245, 228)'}}>
             <h3 style={{textAlign: 'center', margin: 10}}>Manage Report Classifications</h3>
         </Box> 

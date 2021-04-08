@@ -57,6 +57,7 @@ const MY_REPORT_AGGREGATE_URL = `${API_ROOT_URL}/my_report_aggregate/`;
 */
 const REPORT_URL = `${API_ROOT_URL}/report/`;
 const DELETE_REPORT_URL = `${API_ROOT_URL}/delete_report/`;
+const TOGGLE_COMPLETED_URL = `${API_ROOT_URL}/toggle_completed/`;
 
 /*
     Admin routes
@@ -115,6 +116,7 @@ export {
     SUPERUSER_SORT_URL,
     SORT_URL,
     MY_REPORT_AGGREGATE_URL,
+    TOGGLE_COMPLETED_URL,
     CATEGORY_URL,
     EDIT_CATEGORY_URL,
     DELETE_CATEGORY_URL,

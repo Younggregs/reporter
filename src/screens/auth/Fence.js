@@ -16,8 +16,8 @@ function Fence(){
 
     if(auth === null || auth === '' || auth === false){setStatus(false)}
 
-    const superUser = await isSuperUser()
-    if(superUser === true){
+    const user = await isSuperUser()
+    if(user.isSuperUser){
       setIamSuperUser(true)
     }
 
